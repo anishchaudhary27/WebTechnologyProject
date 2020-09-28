@@ -1,0 +1,21 @@
+name: dashboard build test
+author: anish chaudhary
+
+on:
+  pull_request:
+    branches: [master]
+
+defaults:
+  run:
+    working-directory: dashboard
+
+jobs:
+  pull_req_build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm run build     
