@@ -1,8 +1,8 @@
-name: dashboard build test
+name: deploy dashboard React App build
 author: anish chaudhary
 
 on:
-  pull_request:
+  push:
     branches: [master]
 
 defaults:
@@ -18,4 +18,7 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
-      - run: npm run build     
+      - run: npm run build   
+      - uses: w9jds/firebase-actions@master
+        with:
+          args: deploy --only hosting
