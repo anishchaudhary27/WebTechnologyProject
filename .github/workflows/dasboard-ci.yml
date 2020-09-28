@@ -1,5 +1,4 @@
 name: dashboard build test
-author: anish chaudhary
 
 on:
   pull_request:

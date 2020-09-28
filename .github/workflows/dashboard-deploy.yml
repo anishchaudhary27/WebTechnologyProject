@@ -1,5 +1,4 @@
 name: deploy dashboard React App build
-author: anish chaudhary
 
 on:
   push:
