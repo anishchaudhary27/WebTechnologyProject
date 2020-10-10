@@ -6,8 +6,9 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Toolbar from '@material-ui/core/Toolbar';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import './App.css';
 
-import TaskInput from './components/TaskInput';
+import Dashboard from './components/Dashboard2';
 
 const useStyles = makeStyles({
   root: {
@@ -55,17 +56,19 @@ function App() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Dashboard
-          </Typography>
-          <Button color="secondary" variant="contained" onClick={signIn}>
-            {auth ? 'Sign Out' : 'sign in'}
-          </Button>
-        </Toolbar>
-      </AppBar>
-      {auth && <TaskInput />}
+      <div id="main-ui">
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              Dashboard
+            </Typography>
+            <Button color="secondary" variant="contained" onClick={signIn}>
+              {auth ? 'Sign Out' : 'sign in'}
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+      {auth && <Dashboard />}
     </div>
   );
 }

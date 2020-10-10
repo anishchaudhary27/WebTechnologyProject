@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +21,19 @@ export default function TaskInput() {
   const [description, setDescription] = React.useState('');
 
   const onFormSubmit = () => {
-    console.log(value, description);
+    firebase
+      .firestore()
+      .collection('tasks')
+      .add({
+        title: value,
+        description: description
+      })
+      .then(() => {
+        console.log('done');
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
