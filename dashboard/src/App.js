@@ -1,28 +1,13 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Toolbar from '@material-ui/core/Toolbar';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import './App.css';
+import DashboardRaw from './components/Dashboard1';
 
 import Dashboard from './components/Dashboard2';
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1
-  },
-  appbar: {},
-  title: {
-    flexGrow: 1
-  },
-  loginBtn: {}
-});
+import { Button } from './components/Button';
 
 function App() {
-  const classes = useStyles();
   const [auth, setAuth] = React.useState(false);
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -55,20 +40,19 @@ function App() {
   };
 
   return (
-    <div className={classes.root}>
-      <div id="main-ui">
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              Dashboard
-            </Typography>
-            <Button color="secondary" variant="contained" onClick={signIn}>
-              {auth ? 'Sign Out' : 'sign in'}
-            </Button>
-          </Toolbar>
-        </AppBar>
+    <div>
+      <div className="main">
+        <Button
+          buttonStyle="btn--primary"
+          buttonSize="btn--large"
+          buttonColor="primary"
+          onClick={signIn}
+        >
+          {auth ? 'Sign Out' : 'Sign In'}
+        </Button>
       </div>
-      {auth && <Dashboard />}
+      {auth && <Dashboard auth={auth} signIn={signIn} />}
+      {!auth && <DashboardRaw signIn={signIn} />}
     </div>
   );
 }

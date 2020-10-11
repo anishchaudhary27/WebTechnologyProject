@@ -37,7 +37,7 @@ export default function TaskInput() {
   };
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form className={classes.root} noValidate autoComplete="off" className="header-2">
       <Container maxWidth="sm" style={{ marginTop: 60, backgroundColor: '#eee', padding: 10 }}>
         <div>
           <h3>Input Task</h3>
