@@ -37,6 +37,7 @@ export default function TaskInput() {
   };
 
   return (
+    // eslint-disable-next-line
     <form className={classes.root} noValidate autoComplete="off" className="header-2">
       <Container maxWidth="sm" style={{ marginTop: 60, backgroundColor: '#eee', padding: 10 }}>
         <div>
