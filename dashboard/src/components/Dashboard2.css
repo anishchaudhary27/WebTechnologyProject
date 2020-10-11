@@ -1,0 +1,40 @@
+* {
+  text-align: center;
+  margin: 0 auto;
+}
+.main-dash {
+  background-color: #f39c9c;
+  height: 100vh;
+  text-decoration: none;
+}
+
+.header-2 {
+  margin-top: 0;
+  background: linear-gradient(to top, #cfc9df 0%, #e2ebf0 100%);
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  transform: translate(0, -12px);
+}
+
+.router {
+  color: #000;
+  text-emphasis: none;
+  text-decoration: none;
+  border-bottom: none;
+}
+#routers {
+  display: inline-block;
+}
+
+li {
+  float: left;
+  margin-right: 40px;
+  list-style: none;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+.navbar {
+  height: 0px;
+  margin-bottom: 0px;
+}

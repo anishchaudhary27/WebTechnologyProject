@@ -1,66 +1,58 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Toolbar from '@material-ui/core/Toolbar';
-import firebase from "firebase/app"
-import "firebase/auth"
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import './App.css';
+import DashboardRaw from './components/Dashboard1';
 
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-  appbar: {
-
-  },
-  title: {
-    flexGrow: 1,
-  },
-  loginBtn: {
-
-  },
-})
+import Dashboard from './components/Dashboard2';
+import { Button } from './components/Button';
 
 function App() {
-  const classes = useStyles();
   const [auth, setAuth] = React.useState(false);
   React.useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setAuth(true);
-      }
-      else {
+      } else {
         setAuth(false);
       }
-    })
+    });
   }, []);
 
   const signIn = () => {
     if (auth) {
-      firebase.auth().signOut().catch(err=>console.error(err));
-    }
-    else {
+      firebase
+        .auth()
+        .signOut()
+        .catch((err) => console.error(err));
+    } else {
       var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithRedirect(provider).then(value => {
-        console.log('user signed in');
-      })
-        .catch(err => {
-          console.error(err)
+      firebase
+        .auth()
+        .signInWithRedirect(provider)
+        .then((value) => {
+          console.log('user signed in');
+        })
+        .catch((err) => {
+          console.error(err);
         });
     }
-  }
+  };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Dashboard
-          </Typography>
-          <Button color="secondary" variant="contained" onClick={signIn}>{auth ? 'Sign Out' : 'sign in'}</Button>
-        </Toolbar>
-      </AppBar>
+    <div>
+      <div className="main">
+        <Button
+          buttonStyle="btn--primary"
+          buttonSize="btn--large"
+          buttonColor="primary"
+          onClick={signIn}
+        >
+          {auth ? 'Sign Out' : 'Sign In'}
+        </Button>
+      </div>
+      {auth && <Dashboard auth={auth} signIn={signIn} />}
+      {!auth && <DashboardRaw signIn={signIn} />}
     </div>
   );
 }
