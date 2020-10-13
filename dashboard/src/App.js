@@ -9,10 +9,12 @@ import { Button } from './components/Button';
 
 function App() {
   const [auth, setAuth] = React.useState(false);
+  const [currentUser, setUser] = React.useState();
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setAuth(true);
+        setUser(user);
       } else {
         setAuth(false);
       }
@@ -32,6 +34,7 @@ function App() {
         .signInWithRedirect(provider)
         .then((value) => {
           console.log('user signed in');
+          console.log(value);
         })
         .catch((err) => {
           console.error(err);
@@ -51,7 +54,7 @@ function App() {
           {auth ? 'Sign Out' : 'Sign In'}
         </Button>
       </div>
-      {auth && <Dashboard auth={auth} signIn={signIn} />}
+      {auth && <Dashboard user={currentUser} signIn={signIn} />}
       {!auth && <DashboardRaw signIn={signIn} />}
     </div>
   );

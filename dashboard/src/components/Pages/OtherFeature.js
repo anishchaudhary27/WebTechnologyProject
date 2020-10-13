@@ -2,7 +2,7 @@ import React from 'react';
 
 function OtherFeature() {
   return (
-    <div>
+    <div style={{ color: '#ff7597' }}>
       <h1>Other Feature</h1>
     </div>
   );

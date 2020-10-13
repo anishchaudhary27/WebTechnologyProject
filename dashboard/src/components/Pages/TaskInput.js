@@ -37,9 +37,9 @@ export default function TaskInput() {
   };
 
   return (
-    <form className={classes.root} noValidate autoComplete="off" className="header-2">
+    <form className={classes.root} noValidate autoComplete="off">
       <Container maxWidth="sm" style={{ marginTop: 60, backgroundColor: '#eee', padding: 10 }}>
-        <div>
+        <div className="task-input">
           <h3>Input Task</h3>
           <TextField
             id="outlined-multiline-flexible"
@@ -49,7 +49,6 @@ export default function TaskInput() {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             variant="outlined"
-            style={{ backgroundColor: '#e9e9e9' }}
           />
           <TextField
             id="outlined-multiline-static"
@@ -59,7 +58,6 @@ export default function TaskInput() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             variant="outlined"
-            style={{ backgroundColor: '#e9e9e9' }}
           />
           <Button color="primary" variant="contained" onClick={onFormSubmit}>
             submit

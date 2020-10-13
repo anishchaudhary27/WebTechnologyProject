@@ -18,7 +18,7 @@ function DashboardRaw({ auth, signIn }) {
         <div className="hero-img-wrapper">
           <img src={image} alt="hello" className="hero-img" />
         </div>
-        <h1 className="main-heading">DASHBOARD</h1>
+        <h1 className="main-heading">welcome to website header</h1>
         <div className="hero-btn">
           <Button
             buttonSize="btn--wide"
