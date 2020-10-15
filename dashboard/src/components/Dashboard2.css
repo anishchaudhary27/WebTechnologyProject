@@ -12,9 +12,9 @@
 }
 
 .background-gradient {
-  /* background: linear-gradient(to top, #cfc9df 0%, #e2ebf0 100%); */
+  background-image: linear-gradient(to top, #cfc9df 0%, #e2ebf0 100%);
   /* background: linear-gradient(to bottom, #000000 10%, #434343 100%); */
-  background: #242424;
+  /* background: #242424; */
   height: 100vh;
 }
 
@@ -37,7 +37,7 @@
 ul {
   display: inline-block;
   /* color: #ff7597; */
-  color: #bdbdbd;
+  /* color: #bdbdbd; */
 }
 
 li {
@@ -49,7 +49,7 @@ li {
   padding: 0;
 }
 li:hover {
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #000;
   transition: all 0.3s ease-out;
 }
 .navbar {
@@ -66,5 +66,4 @@ li:hover {
 .task-input {
   height: 150%;
   width: 100%;
-  color: #7e7e7e;
 }
