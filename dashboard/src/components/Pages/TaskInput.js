@@ -15,24 +15,24 @@ function TaskInputCool() {
     <div>
       <div className="container">
         <form className="input-form">
-          <h1>Enter details</h1>
-          <label>Title</label>
+          <h1 className="container-head">Enter details</h1>
+          <label>Title :</label>
           <input
             type="text"
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
           />
-          <label>Description</label>
+          <label>Description :</label>
           <input
             type="textbox"
             placeholder="Description"
             onChange={(e) => setDescription(e.target.value)}
             value={description}
           />
-          <label>Date and time</label>
+          <label>Date and Time :</label>
           <input type="datetime-local" onChange={(e) => setDate(e.target.value)} value={date} />
-          <label>Website</label>
+          <label>Website :</label>
           <input
             type="url"
             placeholder="website"

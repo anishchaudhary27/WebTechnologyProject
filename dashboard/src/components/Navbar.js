@@ -5,7 +5,7 @@ import './Dashboard2.css';
 function Navbar({ user }) {
   return (
     <div className="navbar">
-      <ul>
+      <ul className="router-list">
         <li>
           <Link to="/main" style={{ textDecoration: 'none' }}>
             <h2 className="router">Events</h2>

@@ -5,15 +5,16 @@ import './NavbarTop.css';
 function NavbarTop({ user, signIn }) {
   return (
     <div className="navbar-top">
-      <div>
+      <div id="items">
         <ul>
-          <li>{user && <p> {user.displayName}</p>}</li>
+          <li className="userName">{user && <h2> {user.displayName}</h2>}</li>
           <li>
             <Button
               buttonStyle="btn--primary"
               buttonSize="btn--large"
               buttonColor="primary"
               onClick={signIn}
+              className="signOut-btn"
             >
               SignOut
             </Button>

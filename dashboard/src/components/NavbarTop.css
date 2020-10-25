@@ -1,3 +1,18 @@
-.items ul li {
-  display: inline-block;
+#items ul {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
+.userName {
+  margin: 3px 10px;
+}
+
+.signOut-btn {
+  margin-right: 0px;
+}
+
+/* @media screen and (max-width: 455px) {
+  .signOut-btn {
+    margin-right: 0px;
+  }
+} */
