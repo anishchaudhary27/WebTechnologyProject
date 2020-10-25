@@ -1,8 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-#main-ui {
-  background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+  /* box-sizing: border-box; */
+  font-family: 'Lato', sans-serif;
 }

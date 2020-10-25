@@ -2,17 +2,19 @@ import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import './App.css';
-import DashboardRaw from './components/Dashboard1';
+import DashboardRaw from './components/LandingPage';
 
 import Dashboard from './components/Dashboard2';
 import { Button } from './components/Button';
 
 function App() {
   const [auth, setAuth] = React.useState(false);
+  const [currentUser, setUser] = React.useState();
   React.useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setAuth(true);
+        setUser(user);
       } else {
         setAuth(false);
       }
@@ -32,6 +34,7 @@ function App() {
         .signInWithRedirect(provider)
         .then((value) => {
           console.log('user signed in');
+          console.log(value);
         })
         .catch((err) => {
           console.error(err);
@@ -41,17 +44,7 @@ function App() {
 
   return (
     <div>
-      <div className="main">
-        <Button
-          buttonStyle="btn--primary"
-          buttonSize="btn--large"
-          buttonColor="primary"
-          onClick={signIn}
-        >
-          {auth ? 'Sign Out' : 'Sign In'}
-        </Button>
-      </div>
-      {auth && <Dashboard auth={auth} signIn={signIn} />}
+      {auth && <Dashboard user={currentUser} signIn={signIn} />}
       {!auth && <DashboardRaw signIn={signIn} />}
     </div>
   );

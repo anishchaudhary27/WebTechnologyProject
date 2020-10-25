@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Dashboard2.css';
 
-function Navbar() {
+function Navbar({ user }) {
   return (
     <div className="navbar">
-      <ul id="routers">
+      <ul>
         <li>
           <Link to="/main" style={{ textDecoration: 'none' }}>
-            <h1 className="router">Home</h1>
+            <h2 className="router">Events</h2>
           </Link>
         </li>
         <li>
           <Link to="/other" style={{ textDecoration: 'none' }}>
-            <h1 className="router">Router-2</h1>
+            <h2 className="router">Tasks</h2>
           </Link>
         </li>
       </ul>
