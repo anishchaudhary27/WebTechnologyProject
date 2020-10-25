@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import './App.css';
-import DashboardRaw from './components/Dashboard1';
+import DashboardRaw from './components/LandingPage';
 
 import Dashboard from './components/Dashboard2';
 import { Button } from './components/Button';
@@ -44,16 +44,6 @@ function App() {
 
   return (
     <div>
-      <div className="main">
-        <Button
-          buttonStyle="btn--primary"
-          buttonSize="btn--large"
-          buttonColor="primary"
-          onClick={signIn}
-        >
-          {auth ? 'Sign Out' : 'Sign In'}
-        </Button>
-      </div>
       {auth && <Dashboard user={currentUser} signIn={signIn} />}
       {!auth && <DashboardRaw signIn={signIn} />}
     </div>

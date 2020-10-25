@@ -2,27 +2,31 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import OtherFeature from './Pages/OtherFeature';
-import TaskInput from './Pages/TaskInput';
+
+import TaskInput2 from './Pages/TaskInput';
 import image2 from '../images/about.svg';
 import './Dashboard2.css';
+import NavbarTop from './NavbarTop';
 
-function Dashboard({ user }) {
+function Dashboard({ user, signIn }) {
   return (
-    <div className="background-gradient">
-      <Router>
-        <div className="navbar-div">
-          <Navbar user={user} />
-        </div>
-        <Switch>
-          <Route path="/" exact component={OtherFeature} />
-          <Route path="/main" exact component={TaskInput} />
-          <Route path="/other" exact component={OtherFeature} />
-        </Switch>
+    <div>
+      <div className="background-gradient">
+        <Router>
+          <NavbarTop user={user} signIn={signIn} />
+          <Navbar />
 
-        {/* <div className="hero-img-wrapper">
+          <Switch>
+            <Route path="/" exact component={OtherFeature} />
+            <Route path="/main" exact component={TaskInput2} />
+            <Route path="/other" exact component={OtherFeature} />
+          </Switch>
+
+          {/* <div className="hero-img-wrapper">
           <img src={image2} alt="hello" className="hero-img-2" />
         </div> */}
-      </Router>
+        </Router>
+      </div>
     </div>
   );
 }

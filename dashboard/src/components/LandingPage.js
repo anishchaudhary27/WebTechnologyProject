@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './Dashboard1.css';
+import './LandingPage.css';
 import image from '../images/home.svg';
 import { Button } from './Button';
 

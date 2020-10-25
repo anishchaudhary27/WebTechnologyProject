@@ -1,0 +1,58 @@
+.container {
+  background-color: #fff;
+  width: 60%;
+  height: auto;
+  border-radius: 4px;
+  height: 523px;
+  box-shadow: 4px 5px #dedede;
+}
+
+@media screen and (max-width: 700px) {
+  .container {
+    width: 100%;
+  }
+}
+h1 {
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+.clearfix::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+.input-form label {
+  float: left;
+  margin-left: 10px;
+}
+.input-form input {
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+input {
+  width: 90%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+label {
+  width: 90%;
+  text-align: left;
+  display: inline-block;
+  border: none;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}

@@ -20,12 +20,7 @@
   top: 100px;
   left: 80px;
 }
-.main {
-  display: block;
-  max-width: 100%;
-  position: absolute;
-  right: 0px;
-}
+
 .hero-img-wrapper {
   max-width: 555px;
 }
@@ -36,7 +31,6 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: -5;
 }
 
 img {

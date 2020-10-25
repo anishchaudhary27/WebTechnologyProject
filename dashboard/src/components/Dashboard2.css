@@ -12,9 +12,9 @@
 }
 
 .background-gradient {
-  background-image: linear-gradient(to top, #cfc9df 0%, #e2ebf0 100%);
+  /* background-image: linear-gradient(to top, #cfc9df 0%, #e2ebf0 100%); */
   /* background: linear-gradient(to bottom, #000000 10%, #434343 100%); */
-  /* background: #242424; */
+  background-color: #f3f4f5;
   height: 100vh;
 }
 
@@ -52,14 +52,10 @@ li:hover {
   transition: all 0.3s ease-out;
 }
 .navbar {
-  height: 0px;
   margin-bottom: 0px;
-  background-color: #242424;
+  /* background-color: #242424; */
   margin-top: 0px;
   margin-bottom: 20px;
-}
-.navbar-div {
-  margin-bottom: 90px;
 }
 
 .task-input {

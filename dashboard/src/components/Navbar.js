@@ -8,20 +8,13 @@ function Navbar({ user }) {
       <ul>
         <li>
           <Link to="/main" style={{ textDecoration: 'none' }}>
-            <h1 className="router">Home</h1>
+            <h2 className="router">Events</h2>
           </Link>
         </li>
         <li>
           <Link to="/other" style={{ textDecoration: 'none' }}>
-            <h1 className="router">Router-2</h1>
+            <h2 className="router">Tasks</h2>
           </Link>
-        </li>
-        <li>
-          {user && (
-            <div>
-              <p>{user.displayName}</p>
-            </div>
-          )}
         </li>
       </ul>
     </div>
