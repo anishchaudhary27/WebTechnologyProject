@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import './LandingPage.css';
 import image from '../images/home.svg';
-import { Button } from './Button';
+import { Button } from '@material-ui/core';
 
-function DashboardRaw({ auth, signIn }) {
+function LandingPage({ auth, signIn }) {
   useEffect(() => {
     console.log('hello');
   }, [auth]);
@@ -20,12 +20,7 @@ function DashboardRaw({ auth, signIn }) {
         </div>
         <h1 className="main-heading">welcome to website header</h1>
         <div className="hero-btn">
-          <Button
-            buttonSize="btn--wide"
-            buttonColor="primary"
-            buttonStyle="btn--outline"
-            onClick={signIn}
-          >
+          <Button variant="contained" onClick={signIn}>
             Get Started
           </Button>
         </div>
@@ -33,4 +28,4 @@ function DashboardRaw({ auth, signIn }) {
     </>
   );
 }
-export default DashboardRaw;
+export default LandingPage;

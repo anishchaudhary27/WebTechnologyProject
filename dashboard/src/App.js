@@ -1,17 +1,15 @@
 import React from 'react';
 import firebase from 'firebase/app';
-import 'firebase/auth';
+import { Auth } from './firebase/config';
 import './App.css';
-import DashboardRaw from './components/LandingPage';
-
-import Dashboard from './components/Dashboard2';
-import { Button } from './components/Button';
+import LandingPage from './components/LandingPage';
+import Dashboard from './components/Dashboard';
 
 function App() {
   const [auth, setAuth] = React.useState(false);
   const [currentUser, setUser] = React.useState();
   React.useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    Auth.onAuthStateChanged((user) => {
       if (user) {
         setAuth(true);
         setUser(user);
@@ -23,15 +21,10 @@ function App() {
 
   const signIn = () => {
     if (auth) {
-      firebase
-        .auth()
-        .signOut()
-        .catch((err) => console.error(err));
+      Auth.signOut().catch((err) => console.error(err));
     } else {
       var provider = new firebase.auth.GoogleAuthProvider();
-      firebase
-        .auth()
-        .signInWithRedirect(provider)
+      Auth.signInWithRedirect(provider)
         .then((value) => {
           console.log('user signed in');
           console.log(value);
@@ -45,7 +38,7 @@ function App() {
   return (
     <div>
       {auth && <Dashboard user={currentUser} signIn={signIn} />}
-      {!auth && <DashboardRaw signIn={signIn} />}
+      {!auth && <LandingPage signIn={signIn} />}
     </div>
   );
 }
