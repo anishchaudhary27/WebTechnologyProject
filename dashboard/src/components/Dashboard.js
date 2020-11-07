@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import {
-  AppBar,
-  Toolbar,
-  Button,
-  Grid,
-  Card,
-  Typography,
-  CssBaseline,
-  FormHelperText
-} from '@material-ui/core';
+import { AppBar, Toolbar, Button, Grid, Card, Typography, CssBaseline } from '@material-ui/core';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { database } from '../firebase/config';
 import EventInput from './EventInput';
 
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#2e3a4d'
+      main: '#2196f3',
+      light: '#eee'
     },
     secondary: {
       main: '#fff'
     }
   },
   typography: {
-    fontFamily: ['Lato', '-apple-system', 'BlinkMacSystemFont'].join(',')
+    fontFamily: ['sans-serif', '-apple-system', 'BlinkMacSystemFont'].join(',')
   }
 });
 
@@ -39,11 +35,47 @@ const useStyles = makeStyles({
     paddingRight: '50px'
   },
   cardStyle: {
-    height: '200px'
+    height: '200px',
+    margin: '8px',
+    border: '4px solid #eee',
+    textAlign: 'center'
+  },
+  appBar: {
+    top: 'auto',
+    bottom: 0,
+    margin: 0
+  },
+  appBarTop: {
+    top: 'auto',
+    top: 0,
+    margin: 0,
+    width: '100%'
+  },
+  grow: {
+    flexGrow: 1
+  },
+  fabButton: {
+    position: 'absolute',
+    zIndex: 1,
+    top: -30,
+    left: 0,
+    right: 0,
+    margin: '0 auto'
+  },
+  userAvatar: {
+    borderRadius: '100%',
+    height: '50%',
+    width: '50%',
+    float: 'right',
+    border: '1px solid #fff'
+  },
+  divFix: {
+    marginTop: '60px',
+    marginBottom: '100px'
   }
 });
 
-function Dashboard({ signIn }) {
+function Dashboard({ signIn, user }) {
   const classes = useStyles();
   const [events, setEvents] = useState({});
   const [show, setShow] = useState(false);
@@ -83,26 +115,51 @@ function Dashboard({ signIn }) {
     );
   };
 
+  const ShowAvatar = () => {
+    return (
+      <div>
+        <img src={user.photoURL} className={classes.userAvatar} />
+      </div>
+    );
+  };
+
   return (
     <CssBaseline>
-      <div style={{ backgroundColor: '#eee', height: '100vh' }}>
+      <div style={{ backgroundColor: '#fff', height: '100vh', width: '100vw' }}>
         <ThemeProvider theme={theme}>
-          <AppBar position="static" color="primary">
+          <AppBar position="fixed" color="primary" className={classes.appBarTop}>
             <Toolbar className={classes.toolbarStyle}>
-              <Button variant="contained" color="secondary" onClick={() => setShow(!show)}>
-                {!show ? 'Add Task' : 'Go Back'}
-              </Button>
-              <Button variant="contained" color="secondary" onClick={signIn}>
+              {!show && <Typography variant="h4"> Infotics</Typography>}
+              {show && <ArrowBackIcon onClick={() => setShow(!show)} />}
+              {user && <ShowAvatar />}
+              {/* <Button variant="contained" color="secondary" onClick={signIn}>
                 SignOut
-              </Button>
+              </Button> */}
             </Toolbar>
           </AppBar>
-          {show ? (
-            <EventInput />
-          ) : (
-            <Grid container spacing={2} className={classes.EventContainer}>
-              {Object.keys(events).map((id) => getEventCard(id))}
-            </Grid>
+          <div className={classes.divFix}>
+            {show ? (
+              <EventInput />
+            ) : (
+              <Grid container className={classes.EventContainer}>
+                {Object.keys(events).map((id) => getEventCard(id))}
+              </Grid>
+            )}
+          </div>
+          {!show && (
+            <AppBar position="fixed" color="primary" className={classes.appBar}>
+              <Toolbar>
+                <Fab
+                  color="secondary"
+                  aria-label="add"
+                  className={classes.fabButton}
+                  onClick={() => setShow(!show)}
+                >
+                  <AddIcon />
+                </Fab>
+                <div className={classes.grow} />
+              </Toolbar>
+            </AppBar>
           )}
         </ThemeProvider>
       </div>

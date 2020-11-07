@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "webtechonologyproject"
+    "default": "webtechonologyproject",
+    "webtech": "webtech-a600b"
   }
 }
