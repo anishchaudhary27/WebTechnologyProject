@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard';
 function App() {
   const [auth, setAuth] = React.useState(false);
   const [currentUser, setUser] = React.useState();
+
   React.useEffect(() => {
     Auth.onAuthStateChanged((user) => {
       if (user) {

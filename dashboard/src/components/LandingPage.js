@@ -4,9 +4,7 @@ import image from '../images/home.svg';
 import { Button } from '@material-ui/core';
 
 function LandingPage({ auth, signIn }) {
-  useEffect(() => {
-    console.log('hello');
-  }, [auth]);
+  useEffect(() => {}, [auth]);
   return (
     <>
       <div

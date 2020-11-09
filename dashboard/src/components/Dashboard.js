@@ -2,21 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Button, Grid, Card, Typography, CssBaseline } from '@material-ui/core';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { database } from '../firebase/config';
+import { database, Auth } from '../firebase/config';
 import EventInput from './EventInput';
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+import UserModal from './UserModal';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#2196f3',
-      light: '#eee'
+      main: '#2196f3'
     },
     secondary: {
-      main: '#fff'
+      main: '#f50057'
     }
   },
   typography: {
@@ -31,20 +32,17 @@ const useStyles = makeStyles({
   },
   EventContainer: {
     paddingTop: '20px',
-    paddingLeft: '50px',
-    paddingRight: '50px'
+    paddingLeft: '20px',
+    paddingRight: '20px'
   },
   cardStyle: {
     height: '200px',
     margin: '8px',
-    border: '4px solid #eee',
-    textAlign: 'center'
+    border: '0.8px solid #e0e0e0',
+    textAlign: 'center',
+    borderRadius: '8px'
   },
-  appBar: {
-    top: 'auto',
-    bottom: 0,
-    margin: 0
-  },
+  appBar: {},
   appBarTop: {
     top: 'auto',
     top: 0,
@@ -55,12 +53,10 @@ const useStyles = makeStyles({
     flexGrow: 1
   },
   fabButton: {
-    position: 'absolute',
+    position: 'fixed',
     zIndex: 1,
-    top: -30,
-    left: 0,
-    right: 0,
-    margin: '0 auto'
+    bottom: 40,
+    right: 40
   },
   userAvatar: {
     borderRadius: '100%',
@@ -70,8 +66,7 @@ const useStyles = makeStyles({
     border: '1px solid #fff'
   },
   divFix: {
-    marginTop: '60px',
-    marginBottom: '100px'
+    marginTop: '60px'
   }
 });
 
@@ -79,6 +74,7 @@ function Dashboard({ signIn, user }) {
   const classes = useStyles();
   const [events, setEvents] = useState({});
   const [show, setShow] = useState(false);
+  const [uid, setUid] = useState('');
 
   useEffect(() => {
     const getdata = async () => {
@@ -101,6 +97,8 @@ function Dashboard({ signIn, user }) {
       // console.log(events);
     };
     getdata();
+
+    setUid(Auth.currentUser.uid);
   }, [events]);
 
   const getEventCard = (id) => {
@@ -131,36 +129,28 @@ function Dashboard({ signIn, user }) {
             <Toolbar className={classes.toolbarStyle}>
               {!show && <Typography variant="h4"> Infotics</Typography>}
               {show && <ArrowBackIcon onClick={() => setShow(!show)} />}
-              {user && <ShowAvatar />}
-              {/* <Button variant="contained" color="secondary" onClick={signIn}>
-                SignOut
-              </Button> */}
+              {user && <UserModal user={user} signIn={signIn} />}
             </Toolbar>
           </AppBar>
           <div className={classes.divFix}>
             {show ? (
-              <EventInput />
+              <EventInput uid={uid} />
             ) : (
               <Grid container className={classes.EventContainer}>
                 {Object.keys(events).map((id) => getEventCard(id))}
               </Grid>
             )}
+            {!show && (
+              <Fab
+                color="secondary"
+                aria-label="add"
+                className={classes.fabButton}
+                onClick={() => setShow(!show)}
+              >
+                <AddIcon />
+              </Fab>
+            )}
           </div>
-          {!show && (
-            <AppBar position="fixed" color="primary" className={classes.appBar}>
-              <Toolbar>
-                <Fab
-                  color="secondary"
-                  aria-label="add"
-                  className={classes.fabButton}
-                  onClick={() => setShow(!show)}
-                >
-                  <AddIcon />
-                </Fab>
-                <div className={classes.grow} />
-              </Toolbar>
-            </AppBar>
-          )}
         </ThemeProvider>
       </div>
     </CssBaseline>
