@@ -78,13 +78,26 @@ function Dashboard({ signIn, user }) {
   const [uid, setUid] = useState('');
 
   useEffect(() => {
+    setUid(Auth.currentUser.uid);
+    let dataItems = [];
+
     const getdata = async () => {
+      if (uid != '') {
+        const user = database.collection('users').doc(uid);
+        const listOfEvents = await user.get();
+        dataItems = listOfEvents.data().events;
+      }
+
       const eventsRef = database.collection('events');
       const snapshot = await eventsRef.get();
 
       let documents = [];
       snapshot.forEach((doc) => {
-        documents.push({ ...doc.data() });
+        dataItems.forEach((e) => parseInt(e));
+        console.log(doc.id);
+        if (dataItems.length != 0 && dataItems.includes(doc.id)) {
+          documents.push({ ...doc.data() });
+        }
       });
       const newData = {};
       documents.forEach((doc, index) => {
@@ -98,8 +111,6 @@ function Dashboard({ signIn, user }) {
       // console.log(events);
     };
     getdata();
-
-    setUid(Auth.currentUser.uid);
   }, [events]);
 
   const getEventCard = (id) => {
