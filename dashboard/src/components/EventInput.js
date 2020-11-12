@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Typography, TextField, Grid, Button } from '@material-ui/core';
 import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { database } from '../firebase/config';
+import firebase from 'firebase/app';
 
 const useStyles = makeStyles({
   containerStyle: {
@@ -33,6 +34,9 @@ const theme = createMuiTheme({
     secondary: {
       main: '#f50057'
     }
+  },
+  typography: {
+    fontFamily: ['sans-serif', '-apple-system', 'BlinkMacSystemFont'].join(',')
   }
 });
 
@@ -59,10 +63,23 @@ function EventInput({ uid }) {
       url
     });
 
-    const User = await database.collection('users').add({
-      userId: uid,
-      id: res.id
-    });
+    const usersRef = database.collection('users');
+
+    usersRef
+      .doc(uid)
+      .get()
+      .then((docSnapshot) => {
+        if (docSnapshot.exists) {
+          const query = usersRef.doc(uid).update({
+            events: firebase.firestore.FieldValue.arrayUnion(res.id)
+          });
+        } else {
+          usersRef.doc(uid).set({ events: [] });
+          const query = usersRef.doc(uid).update({
+            events: firebase.firestore.FieldValue.arrayUnion(res.id)
+          });
+        }
+      });
 
     // console.log(uid);
   };
@@ -142,7 +159,7 @@ function EventInput({ uid }) {
                 <Button
                   variant="contained"
                   color="secondary"
-                  style={{ margin: '60px auto', borderRadius: '10px' }}
+                  style={{ margin: '60px auto', borderRadius: '50px', padding: '12px 20px' }}
                   onClick={onFormSubmit}
                 >
                   Submit

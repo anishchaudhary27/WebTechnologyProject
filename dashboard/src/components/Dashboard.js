@@ -21,7 +21,7 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: ['sans-serif', '-apple-system', 'BlinkMacSystemFont'].join(',')
+    fontFamily: ['Lato', 'sans-serif', '-apple-system', 'BlinkMacSystemFont'].join(',')
   }
 });
 
@@ -39,8 +39,9 @@ const useStyles = makeStyles({
     height: '200px',
     margin: '8px',
     border: '0.8px solid #e0e0e0',
-    textAlign: 'center',
-    borderRadius: '8px'
+    textAlign: 'left',
+    borderRadius: '4px',
+    padding: '5px 8px'
   },
   appBar: {},
   appBarTop: {
@@ -106,8 +107,12 @@ function Dashboard({ signIn, user }) {
     return (
       <Grid item sm={4} xs={12} key={id}>
         <Card className={classes.cardStyle}>
-          <Typography variant="h3">{title}</Typography>
-          <Typography variant="h6">{description}</Typography>
+          <Typography variant="h4" style={{ textTransform: 'capitalize' }}>
+            {title}
+          </Typography>
+          <Typography variant="h6" style={{ color: 'rgba(0, 0, 0, 0.38)' }}>
+            {description}
+          </Typography>
         </Card>
       </Grid>
     );
