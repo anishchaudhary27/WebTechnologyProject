@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Container, Typography, TextField, Grid, Button } from '@material-ui/core';
+import { Container, Typography, TextField, Grid, Button, Chip } from '@material-ui/core';
 import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { database } from '../firebase/config';
 import firebase from 'firebase/app';
+
+import DropzoneDialogExample from './Dropzone';
+import DoneIcon from '@material-ui/icons/Done';
 
 const useStyles = makeStyles({
   containerStyle: {
@@ -47,12 +50,25 @@ function EventInput({ uid }) {
   const [date, setDate] = useState('');
   const [url, seturl] = useState('');
   const [error, setError] = useState(false);
+  const [image, setImage] = useState('');
+
+  const SuccessChip = () => {
+    return (
+      <Chip
+        label="Event Added Successfully"
+        deleteIcon={<DoneIcon />}
+        variant="outlined"
+        style={{ backgroundColor: '#76ff03' }}
+      />
+    );
+  };
 
   const onFormSubmit = async () => {
+    setError(true);
     console.log(title, description, date, url);
 
     if (title === '' || description === '' || date === '' || url === '') {
-      setError(true);
+      setError(false);
       return;
     }
 
@@ -60,7 +76,8 @@ function EventInput({ uid }) {
       title,
       description,
       date,
-      url
+      url,
+      image
     });
 
     const usersRef = database.collection('users');
@@ -82,16 +99,18 @@ function EventInput({ uid }) {
       });
 
     // console.log(uid);
+    setError(false);
   };
 
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Container maxWidth="md" className={classes.containerStyle}>
-          <Typography
-            component="div"
-            style={{ backgroundColor: '#fff', height: '65vh', marginTop: '10px' }}
-          >
+        <Container
+          maxWidth="md"
+          className={classes.containerStyle}
+          style={{ backgroundColor: '#fff' }}
+        >
+          <Typography component="div" style={{ height: '75vh', marginTop: '10px' }}>
             <Typography variant="h4" style={{ textAlign: 'center' }}>
               ENTER DETAILS
             </Typography>
@@ -148,11 +167,29 @@ function EventInput({ uid }) {
                   </Grid>
                   <Grid item xs={8}>
                     <TextField
+                      type="url"
                       variant="standard"
                       label="Website Link"
                       fullWidth
                       value={url}
                       onChange={(e) => seturl(e.target.value)}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
+                  <Grid item xs={4}>
+                    <Typography className={classes.labelStyles}>Upload image</Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    {/* {<Button>Upload</Button>} */}
+                    {/* <DropzoneDialogExample /> */}
+                    <TextField
+                      type="url"
+                      variant="standard"
+                      label="ImageLink"
+                      fullWidth
+                      value={image}
+                      onChange={(e) => setImage(e.target.value)}
                     />
                   </Grid>
                 </Grid>
@@ -168,6 +205,7 @@ function EventInput({ uid }) {
             </div>
           </Typography>
         </Container>
+        {error && <SuccessChip />}
       </ThemeProvider>
     </div>
   );
