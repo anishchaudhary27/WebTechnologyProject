@@ -103,111 +103,105 @@ function EventInput({ uid }) {
   };
 
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <Container
-          maxWidth="md"
-          className={classes.containerStyle}
-          style={{ backgroundColor: '#fff' }}
-        >
-          <Typography component="div" style={{ height: '75vh', marginTop: '10px' }}>
-            <Typography variant="h4" style={{ textAlign: 'center' }}>
-              ENTER DETAILS
-            </Typography>
-            <div className={classes.root}>
-              <Grid container spacing={1}>
-                <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
-                  <Grid item xs={4}>
-                    <Typography className={classes.labelStyles}>Title</Typography>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <TextField
-                      variant="standard"
-                      label="Title"
-                      className={classes.inputStyles}
-                      value={title}
-                      fullWidth
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
-                  <Grid item xs={4}>
-                    <Typography className={classes.labelStyles}>Description</Typography>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <TextField
-                      variant="standard"
-                      label="Description"
-                      className={classes.inputStyles}
-                      value={description}
-                      fullWidth
-                      onChange={(e) => setDescription(e.target.value)}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
-                  <Grid item sm={4} xs={4}>
-                    <Typography className={classes.labelStyles}>Date</Typography>
-                  </Grid>
-                  <Grid item sm={8} xs={8}>
-                    <TextField
-                      type="datetime-local"
-                      value={date}
-                      fullWidth
-                      onChange={(e) => setDate(e.target.value)}
-                      className={classes.inputStyles}
-                      label=" "
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
-                  <Grid item xs={4}>
-                    <Typography className={classes.labelStyles}>Website</Typography>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <TextField
-                      type="url"
-                      variant="standard"
-                      label="Website Link"
-                      fullWidth
-                      value={url}
-                      onChange={(e) => seturl(e.target.value)}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
-                  <Grid item xs={4}>
-                    <Typography className={classes.labelStyles}>Upload image</Typography>
-                  </Grid>
-                  <Grid item xs={8}>
-                    {/* {<Button>Upload</Button>} */}
-                    {/* <DropzoneDialogExample /> */}
-                    <TextField
-                      type="url"
-                      variant="standard"
-                      label="ImageLink"
-                      fullWidth
-                      value={image}
-                      onChange={(e) => setImage(e.target.value)}
-                    />
-                  </Grid>
-                </Grid>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  style={{ margin: '60px auto', borderRadius: '50px', padding: '12px 20px' }}
-                  onClick={onFormSubmit}
-                >
-                  Submit
-                </Button>
-              </Grid>
-            </div>
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="md" className={classes.containerStyle}>
+        <Typography component="div" style={{ height: '700px', marginTop: '10px' }}>
+          <Typography variant="h4" style={{ textAlign: 'center' }}>
+            ENTER DETAILS
           </Typography>
-        </Container>
-        {error && <SuccessChip />}
-      </ThemeProvider>
-    </div>
+          <div className={classes.root}>
+            <Grid container spacing={1}>
+              <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
+                <Grid item xs={4}>
+                  <Typography className={classes.labelStyles}>Title</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    variant="standard"
+                    label="Title"
+                    className={classes.inputStyles}
+                    value={title}
+                    fullWidth
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </Grid>
+              </Grid>
+              <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
+                <Grid item xs={4}>
+                  <Typography className={classes.labelStyles}>Description</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    variant="standard"
+                    label="Description"
+                    className={classes.inputStyles}
+                    value={description}
+                    fullWidth
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </Grid>
+              </Grid>
+              <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
+                <Grid item sm={4} xs={4}>
+                  <Typography className={classes.labelStyles}>Date</Typography>
+                </Grid>
+                <Grid item sm={8} xs={8}>
+                  <TextField
+                    type="datetime-local"
+                    value={date}
+                    fullWidth
+                    onChange={(e) => setDate(e.target.value)}
+                    className={classes.inputStyles}
+                    label=" "
+                  />
+                </Grid>
+              </Grid>
+              <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
+                <Grid item xs={4}>
+                  <Typography className={classes.labelStyles}>Website</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    type="url"
+                    variant="standard"
+                    label="Website Link"
+                    fullWidth
+                    value={url}
+                    onChange={(e) => seturl(e.target.value)}
+                  />
+                </Grid>
+              </Grid>
+              <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
+                <Grid item xs={4}>
+                  <Typography className={classes.labelStyles}>Upload image</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  {/* {<Button>Upload</Button>} */}
+                  {/* <DropzoneDialogExample /> */}
+                  <TextField
+                    type="url"
+                    variant="standard"
+                    label="ImageLink"
+                    fullWidth
+                    value={image}
+                    onChange={(e) => setImage(e.target.value)}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ margin: '60px auto', borderRadius: '50px', padding: '12px 20px' }}
+                onClick={onFormSubmit}
+              >
+                Submit
+              </Button>
+            </Grid>
+          </div>
+        </Typography>
+      </Container>
+      {error && <SuccessChip />}
+    </ThemeProvider>
   );
 }
 
