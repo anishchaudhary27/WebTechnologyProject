@@ -32,6 +32,9 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#f50057'
+    },
+    background: {
+      default: '#e1f5fe'
     }
   },
   typography: {
@@ -202,38 +205,36 @@ function Dashboard({ signIn, user }) {
   };
 
   return (
-    <CssBaseline>
-      <div style={{ backgroundColor: '#fff', height: '100vh', width: '100vw' }}>
-        <ThemeProvider theme={theme}>
-          <AppBar position="fixed" color="primary" className={classes.appBarTop}>
-            <Toolbar className={classes.toolbarStyle}>
-              {!show && <Typography variant="h4"> Infotics</Typography>}
-              {show && <ArrowBackIcon onClick={() => setShow(!show)} />}
-              {user && <UserModal user={user} signIn={signIn} />}
-            </Toolbar>
-          </AppBar>
-          <div className={classes.divFix}>
-            {show ? (
-              <EventInput uid={uid} />
-            ) : (
-              <Grid container className={classes.EventContainer}>
-                {Object.keys(events).map((id) => getEventCard(id))}
-              </Grid>
-            )}
-            {!show && (
-              <Fab
-                color="secondary"
-                aria-label="add"
-                className={classes.fabButton}
-                onClick={() => setShow(!show)}
-              >
-                <AddIcon />
-              </Fab>
-            )}
-          </div>
-        </ThemeProvider>
-      </div>
-    </CssBaseline>
+    <ThemeProvider theme={theme}>
+      <CssBaseline>
+        <AppBar position="fixed" color="primary" className={classes.appBarTop}>
+          <Toolbar className={classes.toolbarStyle}>
+            {!show && <Typography variant="h4"> Infotics</Typography>}
+            {show && <ArrowBackIcon onClick={() => setShow(!show)} />}
+            {user && <UserModal user={user} signIn={signIn} />}
+          </Toolbar>
+        </AppBar>
+        <div className={classes.divFix}>
+          {show ? (
+            <EventInput uid={uid} />
+          ) : (
+            <Grid container className={classes.EventContainer}>
+              {Object.keys(events).map((id) => getEventCard(id))}
+            </Grid>
+          )}
+          {!show && (
+            <Fab
+              color="secondary"
+              aria-label="add"
+              className={classes.fabButton}
+              onClick={() => setShow(!show)}
+            >
+              <AddIcon />
+            </Fab>
+          )}
+        </div>
+      </CssBaseline>
+    </ThemeProvider>
   );
 }
 
