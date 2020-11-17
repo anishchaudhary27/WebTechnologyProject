@@ -11,6 +11,20 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import UserModal from './UserModal';
 
+import clsx from 'clsx';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Avatar from '@material-ui/core/Avatar';
+import { red } from '@material-ui/core/colors';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -18,6 +32,9 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#f50057'
+    },
+    background: {
+      default: '#e1f5fe'
     }
   },
   typography: {
@@ -36,7 +53,6 @@ const useStyles = makeStyles({
     paddingRight: '20px'
   },
   cardStyle: {
-    height: '200px',
     margin: '8px',
     border: '0.8px solid #e0e0e0',
     textAlign: 'left',
@@ -68,6 +84,26 @@ const useStyles = makeStyles({
   },
   divFix: {
     marginTop: '60px'
+  },
+  root: {
+    maxWidth: 345
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%' // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)'
+  },
+  avatar: {
+    backgroundColor: red[500]
   }
 });
 
@@ -76,6 +112,11 @@ function Dashboard({ signIn, user }) {
   const [events, setEvents] = useState({});
   const [show, setShow] = useState(false);
   const [uid, setUid] = useState('');
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   useEffect(() => {
     setUid(Auth.currentUser.uid);
@@ -94,7 +135,7 @@ function Dashboard({ signIn, user }) {
       let documents = [];
       snapshot.forEach((doc) => {
         dataItems.forEach((e) => parseInt(e));
-        console.log(doc.id);
+
         if (dataItems.length != 0 && dataItems.includes(doc.id)) {
           documents.push({ ...doc.data() });
         }
@@ -104,7 +145,9 @@ function Dashboard({ signIn, user }) {
         newData[index + 1] = {
           id: index + 1,
           title: doc.title,
-          description: doc.description
+          description: doc.description,
+          date: doc.date,
+          image: doc.image
         };
       });
       setEvents(newData);
@@ -114,16 +157,40 @@ function Dashboard({ signIn, user }) {
   }, [events]);
 
   const getEventCard = (id) => {
-    const { title, description } = events[id];
+    const { title, description, date, image } = events[id];
     return (
-      <Grid item sm={4} xs={12} key={id}>
+      <Grid item sm={3} xs={12} key={id}>
         <Card className={classes.cardStyle}>
-          <Typography variant="h4" style={{ textTransform: 'capitalize' }}>
-            {title}
-          </Typography>
-          <Typography variant="h6" style={{ color: 'rgba(0, 0, 0, 0.38)' }}>
-            {description}
-          </Typography>
+          <CardHeader title={title} subheader={date} style={{ textTransform: 'uppercase' }} />
+          <CardMedia className={classes.media} image={image} title={title} />
+          <CardContent>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              style={{ height: '100px', overflowY: 'scroll' }}
+            >
+              {description}
+            </Typography>
+          </CardContent>
+          {/* <CardActions disableSpacing>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph>Method:</Typography>
+              <Typography paragraph>{description}</Typography>
+            </CardContent>
+          </Collapse> */}
         </Card>
       </Grid>
     );
@@ -138,38 +205,36 @@ function Dashboard({ signIn, user }) {
   };
 
   return (
-    <CssBaseline>
-      <div style={{ backgroundColor: '#fff', height: '100vh', width: '100vw' }}>
-        <ThemeProvider theme={theme}>
-          <AppBar position="fixed" color="primary" className={classes.appBarTop}>
-            <Toolbar className={classes.toolbarStyle}>
-              {!show && <Typography variant="h4"> Infotics</Typography>}
-              {show && <ArrowBackIcon onClick={() => setShow(!show)} />}
-              {user && <UserModal user={user} signIn={signIn} />}
-            </Toolbar>
-          </AppBar>
-          <div className={classes.divFix}>
-            {show ? (
-              <EventInput uid={uid} />
-            ) : (
-              <Grid container className={classes.EventContainer}>
-                {Object.keys(events).map((id) => getEventCard(id))}
-              </Grid>
-            )}
-            {!show && (
-              <Fab
-                color="secondary"
-                aria-label="add"
-                className={classes.fabButton}
-                onClick={() => setShow(!show)}
-              >
-                <AddIcon />
-              </Fab>
-            )}
-          </div>
-        </ThemeProvider>
-      </div>
-    </CssBaseline>
+    <ThemeProvider theme={theme}>
+      <CssBaseline>
+        <AppBar position="fixed" color="primary" className={classes.appBarTop}>
+          <Toolbar className={classes.toolbarStyle}>
+            {!show && <Typography variant="h4"> Infotics</Typography>}
+            {show && <ArrowBackIcon onClick={() => setShow(!show)} />}
+            {user && <UserModal user={user} signIn={signIn} />}
+          </Toolbar>
+        </AppBar>
+        <div className={classes.divFix}>
+          {show ? (
+            <EventInput uid={uid} />
+          ) : (
+            <Grid container className={classes.EventContainer}>
+              {Object.keys(events).map((id) => getEventCard(id))}
+            </Grid>
+          )}
+          {!show && (
+            <Fab
+              color="secondary"
+              aria-label="add"
+              className={classes.fabButton}
+              onClick={() => setShow(!show)}
+            >
+              <AddIcon />
+            </Fab>
+          )}
+        </div>
+      </CssBaseline>
+    </ThemeProvider>
   );
 }
 

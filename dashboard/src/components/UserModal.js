@@ -50,7 +50,7 @@ export default function UserModal({ user, signIn }) {
 
   const ShowAvatar = () => {
     return (
-      <div onClick={handleOpen}>
+      <div onClick={handleOpen} style={{ width: '100px' }}>
         <img src={user.photoURL} className={classes.userAvatar} />
       </div>
     );

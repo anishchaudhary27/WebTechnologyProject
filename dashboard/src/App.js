@@ -24,11 +24,11 @@ function App() {
     if (auth) {
       Auth.signOut().catch((err) => console.error(err));
     } else {
+      setAuth(true);
       var provider = new firebase.auth.GoogleAuthProvider();
       Auth.signInWithRedirect(provider)
         .then((value) => {
           console.log('user signed in');
-          console.log(value);
         })
         .catch((err) => {
           console.error(err);
