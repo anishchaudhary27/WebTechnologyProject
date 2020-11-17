@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container,
   Typography,
@@ -14,6 +14,7 @@ import firebase from 'firebase/app';
 
 import DropzoneDialogExample from './Dropzone';
 import DoneIcon from '@material-ui/icons/Done';
+import TagInput from './TagsInput';
 
 const useStyles = makeStyles({
   containerStyle: {
@@ -62,6 +63,7 @@ function EventInput({ uid }) {
   const [date, setDate] = useState('');
   const [url, seturl] = useState('');
   const [image, setImage] = useState('');
+  const [tags, setTags] = useState([]);
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -104,7 +106,8 @@ function EventInput({ uid }) {
       description,
       date,
       url,
-      image
+      image,
+      tags
     });
 
     const usersRef = database.collection('users');
@@ -136,6 +139,8 @@ function EventInput({ uid }) {
     }, 3000);
   };
 
+  const selectedTags = (tags) => console.log(tags);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
@@ -143,7 +148,7 @@ function EventInput({ uid }) {
         {error && <ErrorChip />}
         <div>
           <Container maxWidth="md" className={classes.containerStyle}>
-            <Typography component="div" style={{ height: '700px', marginTop: '10px' }}>
+            <Typography component="div" style={{ height: '800px', marginTop: '10px' }}>
               <Typography variant="h4" style={{ textAlign: 'center' }}>
                 ENTER DETAILS
               </Typography>
@@ -224,6 +229,14 @@ function EventInput({ uid }) {
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                       />
+                    </Grid>
+                  </Grid>
+                  <Grid container item xs={12} spacing={3} className={classes.inputContainer}>
+                    <Grid item xs={4}>
+                      <Typography className={classes.labelStyles}>Tags </Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <TagInput selectedTags={selectedTags} tags={tags} setTags={setTags} />
                     </Grid>
                   </Grid>
                   <Button
